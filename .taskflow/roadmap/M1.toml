@@ -4,7 +4,7 @@ uid = "43fcea97-b087-4ea4-acfc-c180180eef53"
 title = "Design initial version of system based on README.md"
 description = ""
 task_type = "feature"
-status = "backlog"
+status = "done"
 priority = 0
 subtask_uids = [
     "1fb5258e-683d-4223-bada-ddfcdaacc438",
@@ -12,13 +12,24 @@ subtask_uids = [
     "59ab282d-7419-4f20-ad35-5bfac44ee59a",
 ]
 milestone_id = "M1"
-designs = []
 tags = []
 created_at = "2026-05-04T14:48:24.384485Z"
-updated_at = "2026-05-04T14:48:24.384485Z"
+updated_at = "2026-05-04T15:22:20.337165Z"
+completed_at = "2026-05-04T15:22:11.413585Z"
+
+[[tasks.designs]]
+design_type = "hld"
+path = "docs/designs/M1/TF-1/hld-taskflow-runner-initial-architecture.md"
+status = "approved"
+created_at = "2026-05-04T15:07:30.726639Z"
+updated_at = "2026-05-04T15:22:20.337165Z"
 
 [tasks.execution]
-logs = []
+agent_id = "Codex"
+start_time = "2026-05-04T15:07:17.262743Z"
+end_time = "2026-05-04T15:22:11.413585Z"
+logs = ["Created and validated initial HLD for taskflow-runner architecture based on README.md."]
+outcome = "success"
 
 [tasks.metadata]
 template = "design"
