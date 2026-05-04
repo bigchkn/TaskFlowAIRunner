@@ -1,0 +1,8 @@
+name = "New Project"
+description = ""
+version = "0.1.0"
+milestones = []
+archived_milestones = []
+backlog_path = "roadmap/backlog.toml"
+
+[config]
