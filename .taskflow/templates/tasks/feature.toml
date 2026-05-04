@@ -1,0 +1,17 @@
+name = "Feature"
+description = "Standard template for new features"
+
+[required_metadata]
+priority_reason = "string"
+impact_analysis = "string"
+
+[[default_subtasks]]
+title = "Write LLD"
+task_type = "research"
+
+[[default_subtasks]]
+title = "Implementation"
+task_type = "feature"
+
+[[required_designs]]
+design_type = "lld"

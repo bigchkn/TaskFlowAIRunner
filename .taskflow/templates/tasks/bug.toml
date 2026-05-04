@@ -1,0 +1,18 @@
+name = "Bug"
+description = "Template for bug fixes"
+
+[required_metadata]
+reproduction_steps = "string"
+root_cause = "string"
+
+[[default_subtasks]]
+title = "Reproduce Bug"
+task_type = "research"
+
+[[default_subtasks]]
+title = "Fix"
+task_type = "bug"
+
+[[default_subtasks]]
+title = "Verify Fix"
+task_type = "chore"

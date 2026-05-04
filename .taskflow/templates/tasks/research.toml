@@ -1,0 +1,13 @@
+name = "Research"
+description = "Template for research and spikes"
+
+[required_metadata]
+research_goal = "string"
+
+[[default_subtasks]]
+title = "Gather Requirements"
+task_type = "research"
+
+[[default_subtasks]]
+title = "Final Report"
+task_type = "research"
