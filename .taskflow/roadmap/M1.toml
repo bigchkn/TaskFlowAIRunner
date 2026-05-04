@@ -1,0 +1,87 @@
+[[tasks]]
+id = "TF-1"
+uid = "43fcea97-b087-4ea4-acfc-c180180eef53"
+title = "Design initial version of system based on README.md"
+description = ""
+task_type = "feature"
+status = "backlog"
+priority = 0
+subtask_uids = [
+    "1fb5258e-683d-4223-bada-ddfcdaacc438",
+    "fee428b6-7743-4da3-a787-25e0afeede6f",
+    "59ab282d-7419-4f20-ad35-5bfac44ee59a",
+]
+milestone_id = "M1"
+designs = []
+tags = []
+created_at = "2026-05-04T14:48:24.384485Z"
+updated_at = "2026-05-04T14:48:24.384485Z"
+
+[tasks.execution]
+logs = []
+
+[tasks.metadata]
+template = "design"
+
+[[tasks]]
+id = "TF-2"
+uid = "1fb5258e-683d-4223-bada-ddfcdaacc438"
+title = "Write initial design"
+description = ""
+task_type = "feature"
+status = "backlog"
+priority = 0
+parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
+subtask_uids = []
+milestone_id = "M1"
+designs = []
+tags = []
+created_at = "2026-05-04T14:48:24.385223Z"
+updated_at = "2026-05-04T14:48:24.385223Z"
+
+[tasks.execution]
+logs = []
+
+[tasks.metadata]
+
+[[tasks]]
+id = "TF-3"
+uid = "fee428b6-7743-4da3-a787-25e0afeede6f"
+title = "review design"
+description = ""
+task_type = "feature"
+status = "backlog"
+priority = 0
+parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
+subtask_uids = []
+milestone_id = "M1"
+designs = []
+tags = []
+created_at = "2026-05-04T14:48:24.386084Z"
+updated_at = "2026-05-04T14:48:24.386084Z"
+
+[tasks.execution]
+logs = []
+
+[tasks.metadata]
+
+[[tasks]]
+id = "TF-4"
+uid = "59ab282d-7419-4f20-ad35-5bfac44ee59a"
+title = "breakdown into separate tasks"
+description = ""
+task_type = "feature"
+status = "backlog"
+priority = 0
+parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
+subtask_uids = []
+milestone_id = "M1"
+designs = []
+tags = []
+created_at = "2026-05-04T14:48:24.387003Z"
+updated_at = "2026-05-04T14:48:24.387003Z"
+
+[tasks.execution]
+logs = []
+
+[tasks.metadata]

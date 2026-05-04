@@ -1,0 +1,14 @@
+name = "Design"
+description = "Template for design"
+
+[[default_subtasks]]
+title = "Write initial design"
+task_type = "task"
+
+[[default_subtasks]]
+title = "review design"
+task_type = "task"
+
+[[default_subtasks]]
+title = "breakdown into separate tasks"
+task_type = "task"
