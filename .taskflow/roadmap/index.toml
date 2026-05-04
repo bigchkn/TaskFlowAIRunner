@@ -6,3 +6,4 @@ archived_milestones = []
 backlog_path = "roadmap/backlog.toml"
 
 [config]
+force_templates = "true"
