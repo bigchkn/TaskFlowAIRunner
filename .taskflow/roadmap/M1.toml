@@ -10,6 +10,15 @@ subtask_uids = [
     "1fb5258e-683d-4223-bada-ddfcdaacc438",
     "fee428b6-7743-4da3-a787-25e0afeede6f",
     "59ab282d-7419-4f20-ad35-5bfac44ee59a",
+    "2e13accd-c9d8-4e18-91e8-17deaf880676",
+    "900c9cc8-4707-4526-a0ac-7a5173b5d24b",
+    "6f8379ef-b0d3-4eb8-806c-cd109060984f",
+    "48d4aeaf-600b-4f03-bfb1-3077ed83f0dd",
+    "d0b784de-5346-4173-babe-0ef60a643895",
+    "3303dfc1-196a-49a5-9120-5a1438c47943",
+    "d701f3c8-bc1f-4401-ac9d-c2e5ef753bae",
+    "a2905776-4443-4fac-8e15-45033b902573",
+    "6953bda9-1705-4efb-995f-2521149dea36",
 ]
 milestone_id = "M1"
 tags = []
@@ -66,7 +75,7 @@ uid = "fee428b6-7743-4da3-a787-25e0afeede6f"
 title = "review design"
 description = ""
 task_type = "feature"
-status = "backlog"
+status = "done"
 priority = 0
 parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
 subtask_uids = []
@@ -74,10 +83,15 @@ milestone_id = "M1"
 designs = []
 tags = []
 created_at = "2026-05-04T14:48:24.386084Z"
-updated_at = "2026-05-04T14:48:24.386084Z"
+updated_at = "2026-05-05T08:51:00.315162Z"
+completed_at = "2026-05-05T08:51:00.315162Z"
 
 [tasks.execution]
-logs = []
+agent_id = "Gemini-CLI"
+start_time = "2026-05-05T08:47:17.516678Z"
+end_time = "2026-05-05T08:51:00.315161Z"
+logs = ["Updated HLD with user feedback: added Git check for init, .gitignore management, and defined provider configuration behavior. Marked HLD as approved."]
+outcome = "success"
 
 [tasks.metadata]
 
@@ -87,7 +101,7 @@ uid = "59ab282d-7419-4f20-ad35-5bfac44ee59a"
 title = "breakdown into separate tasks"
 description = ""
 task_type = "feature"
-status = "backlog"
+status = "done"
 priority = 0
 parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
 subtask_uids = []
@@ -95,7 +109,214 @@ milestone_id = "M1"
 designs = []
 tags = []
 created_at = "2026-05-04T14:48:24.387003Z"
-updated_at = "2026-05-04T14:48:24.387003Z"
+updated_at = "2026-05-05T08:51:29.313862Z"
+completed_at = "2026-05-05T08:51:29.313862Z"
+
+[tasks.execution]
+agent_id = "Gemini-CLI"
+start_time = "2026-05-05T08:51:12.484565Z"
+end_time = "2026-05-05T08:51:29.313862Z"
+logs = ["Brokedown the HLD implementation roadmap into tasks TF-5 through TF-13."]
+outcome = "success"
+
+[tasks.metadata]
+
+[[tasks]]
+id = "TF-5"
+uid = "2e13accd-c9d8-4e18-91e8-17deaf880676"
+title = "Create the Rust CLI crate and command parsing"
+description = ""
+task_type = "feature"
+status = "done"
+priority = 0
+parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
+subtask_uids = []
+milestone_id = "M1"
+designs = []
+tags = []
+created_at = "2026-05-05T08:51:27.665658Z"
+updated_at = "2026-05-05T08:51:58.725073Z"
+completed_at = "2026-05-05T08:51:58.725073Z"
+
+[tasks.execution]
+agent_id = "Gemini-CLI"
+start_time = "2026-05-05T08:51:35.923457Z"
+end_time = "2026-05-05T08:51:58.725073Z"
+logs = ["Initialized Cargo project 'taskflow-runner' and implemented the basic CLI structure with clap, including init, dispatch, and config subcommands."]
+outcome = "success"
+
+[tasks.metadata]
+
+[[tasks]]
+id = "TF-6"
+uid = "900c9cc8-4707-4526-a0ac-7a5173b5d24b"
+title = "Implement config loading, defaults, and init wizard output"
+description = ""
+task_type = "feature"
+status = "done"
+priority = 0
+parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
+subtask_uids = []
+milestone_id = "M1"
+designs = []
+tags = []
+created_at = "2026-05-05T08:51:27.670900Z"
+updated_at = "2026-05-05T08:57:43.076263Z"
+completed_at = "2026-05-05T08:57:43.076263Z"
+
+[tasks.execution]
+agent_id = "Gemini-CLI"
+start_time = "2026-05-05T08:52:04.676439Z"
+end_time = "2026-05-05T08:57:43.076263Z"
+logs = [
+    "Implemented configuration schema, loading/saving logic, and the 'init' command wizard. The 'init' command now verifies Git repo presence, updates .gitignore, and guides the user through provider configuration.",
+    "Updated 'init' command to automatically detect installed providers (gemini, claude, dirac, opencode) using the 'which' crate. Only detected providers are configured, with the default set to the first one found (alphabetical) unless overridden by the user.",
+]
+outcome = "success"
+
+[tasks.metadata]
+
+[[tasks]]
+id = "TF-7"
+uid = "6f8379ef-b0d3-4eb8-806c-cd109060984f"
+title = "Implement process execution utilities with timeout support"
+description = ""
+task_type = "feature"
+status = "backlog"
+priority = 0
+parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
+subtask_uids = []
+milestone_id = "M1"
+designs = []
+tags = []
+created_at = "2026-05-05T08:51:27.675672Z"
+updated_at = "2026-05-05T08:51:27.675672Z"
+
+[tasks.execution]
+logs = []
+
+[tasks.metadata]
+
+[[tasks]]
+id = "TF-8"
+uid = "48d4aeaf-600b-4f03-bfb1-3077ed83f0dd"
+title = "Implement the TaskFlow adapter for next/start/validate/complete/sync"
+description = ""
+task_type = "feature"
+status = "backlog"
+priority = 0
+parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
+subtask_uids = []
+milestone_id = "M1"
+designs = []
+tags = []
+created_at = "2026-05-05T08:51:27.680432Z"
+updated_at = "2026-05-05T08:51:27.680432Z"
+
+[tasks.execution]
+logs = []
+
+[tasks.metadata]
+
+[[tasks]]
+id = "TF-9"
+uid = "d0b784de-5346-4173-babe-0ef60a643895"
+title = "Implement Git repository and worktree management"
+description = ""
+task_type = "feature"
+status = "backlog"
+priority = 0
+parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
+subtask_uids = []
+milestone_id = "M1"
+designs = []
+tags = []
+created_at = "2026-05-05T08:51:27.684884Z"
+updated_at = "2026-05-05T08:51:27.684884Z"
+
+[tasks.execution]
+logs = []
+
+[tasks.metadata]
+
+[[tasks]]
+id = "TF-10"
+uid = "3303dfc1-196a-49a5-9120-5a1438c47943"
+title = "Implement provider driver construction from config"
+description = ""
+task_type = "feature"
+status = "backlog"
+priority = 0
+parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
+subtask_uids = []
+milestone_id = "M1"
+designs = []
+tags = []
+created_at = "2026-05-05T08:51:27.689162Z"
+updated_at = "2026-05-05T08:51:27.689162Z"
+
+[tasks.execution]
+logs = []
+
+[tasks.metadata]
+
+[[tasks]]
+id = "TF-11"
+uid = "d701f3c8-bc1f-4401-ac9d-c2e5ef753bae"
+title = "Implement dispatch --once and the sequential watch loop"
+description = ""
+task_type = "feature"
+status = "backlog"
+priority = 0
+parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
+subtask_uids = []
+milestone_id = "M1"
+designs = []
+tags = []
+created_at = "2026-05-05T08:51:27.693460Z"
+updated_at = "2026-05-05T08:51:27.693460Z"
+
+[tasks.execution]
+logs = []
+
+[tasks.metadata]
+
+[[tasks]]
+id = "TF-12"
+uid = "a2905776-4443-4fac-8e15-45033b902573"
+title = "Add tests around config, provider command, TaskFlow output, and worktree"
+description = ""
+task_type = "feature"
+status = "backlog"
+priority = 0
+parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
+subtask_uids = []
+milestone_id = "M1"
+designs = []
+tags = []
+created_at = "2026-05-05T08:51:27.697715Z"
+updated_at = "2026-05-05T08:51:27.697715Z"
+
+[tasks.execution]
+logs = []
+
+[tasks.metadata]
+
+[[tasks]]
+id = "TF-13"
+uid = "6953bda9-1705-4efb-995f-2521149dea36"
+title = "Add README usage examples for init, config, and dispatch"
+description = ""
+task_type = "feature"
+status = "backlog"
+priority = 0
+parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
+subtask_uids = []
+milestone_id = "M1"
+designs = []
+tags = []
+created_at = "2026-05-05T08:51:27.701781Z"
+updated_at = "2026-05-05T08:51:27.701781Z"
 
 [tasks.execution]
 logs = []

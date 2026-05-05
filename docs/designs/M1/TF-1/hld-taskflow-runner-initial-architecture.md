@@ -1,7 +1,7 @@
 # High-Level Design: TaskFlow Runner Initial Architecture
 
 Type: hld
-Status: draft
+Status: approved
 Milestone: M1
 Task: TF-1
 
@@ -14,6 +14,8 @@ The initial implementation is intentionally sequential. That keeps task ordering
 ## 2. Goals
 
 - Provide `taskflow-runner init` to create a global user configuration at `~/.taskflow/taskflow-runner.json`.
+  - **Environment Check**: The command must bail with an error if not executed within a directory containing a `.git/` folder.
+  - **Ignore Management**: Automatically add `.taskflow/worktrees` to the project's `.gitignore` file. If `.gitignore` does not exist, create it.
 - Provide `taskflow-runner dispatch` to run a watch loop that repeatedly asks TaskFlowAI for the next task and sends it to an enabled provider.
 - Execute each task in a dedicated Git worktree under `.taskflow/worktrees/<task-uid>`.
 - Support config-driven provider definitions for CLIs such as Claude, Gemini, Dirac, and OpenCode.
@@ -77,6 +79,14 @@ The CLI exposes the initial command surface:
 - `taskflow-runner config validate`
 
 The CLI layer parses flags, loads configuration, validates the repository context, and delegates to the dispatcher. It should keep command behavior explicit and avoid hidden state changes outside the config file and `.taskflow/worktrees`.
+
+**`taskflow-runner init` Details**:
+The `init` command acts as a setup wizard. It should:
+1. Verify the presence of a `.git/` directory.
+2. Update or create `.gitignore` to include `.taskflow/worktrees`.
+3. Configure providers by either:
+   - Prompting the user to select from a list of known providers.
+   - Automatically configuring all detected providers, with the default enabled provider falling to alphabetical order.
 
 ### Configuration
 
