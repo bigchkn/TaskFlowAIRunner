@@ -30,7 +30,12 @@ To ensure isolation and safety, `taskflow-runner` utilizes Git worktrees:
 - **Execution Prompt:** For each task, the runner invokes the enabled AI CLI with a headless/skip-permission flag and the standard prompt: 
   > "Run /taskflow and execute the next available task."
 
-### 4. Provider Driver System
+### 4. Shell Completions
+- **Command:** `taskflow-runner completions <shell>`
+- **Supported shells:** Bash, Elvish, Fish, PowerShell, and Zsh.
+- **Example:** `taskflow-runner completions zsh > _taskflow-runner`
+
+### 5. Provider Driver System
 The runner uses a config-driven driver system to interface with AI CLIs. Since most agents are invoked via a simple CLI command with a prompt, adding new providers is a matter of defining their execution patterns (command, headless flags, etc.) in the configuration.
 
 ## Roadmap & Progress
