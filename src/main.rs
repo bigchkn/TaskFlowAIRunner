@@ -5,6 +5,7 @@ mod config;
 mod commands;
 mod process;
 mod taskflow;
+mod git;
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]

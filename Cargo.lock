@@ -467,6 +467,7 @@ dependencies = [
  "directories",
  "serde",
  "serde_json",
+ "tempfile",
  "wait-timeout",
  "which",
 ]

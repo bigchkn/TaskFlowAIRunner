@@ -16,7 +16,7 @@
   - [x] **TF-6**: Implement config loading, defaults, and init wizard output (Parent: TF-1)(`Done`)
   - [x] **TF-7**: Implement process execution utilities with timeout support (Parent: TF-1)(`Done`)
   - [x] **TF-8**: Implement the TaskFlow adapter for next/start/validate/complete/sync (Parent: TF-1)(`Done`)
-  - [ ] **TF-9**: Implement Git repository and worktree management (Parent: TF-1)(`Backlog`)
+  - [x] **TF-9**: Implement Git repository and worktree management (Parent: TF-1)(`Done`)
   - [ ] **TF-10**: Implement provider driver construction from config (Parent: TF-1)(`Backlog`)
   - [ ] **TF-11**: Implement dispatch --once and the sequential watch loop (Parent: TF-1)(`Backlog`)
   - [ ] **TF-12**: Add tests around config, provider command, TaskFlow output, and worktree (Parent: TF-1)(`Backlog`)
