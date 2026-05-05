@@ -3,6 +3,7 @@ use anyhow::Result;
 
 mod config;
 mod commands;
+mod process;
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
