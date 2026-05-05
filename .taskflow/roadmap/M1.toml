@@ -286,7 +286,7 @@ uid = "d701f3c8-bc1f-4401-ac9d-c2e5ef753bae"
 title = "Implement dispatch --once and the sequential watch loop"
 description = ""
 task_type = "feature"
-status = "backlog"
+status = "done"
 priority = 0
 parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
 subtask_uids = []
@@ -294,10 +294,15 @@ milestone_id = "M1"
 designs = []
 tags = []
 created_at = "2026-05-05T08:51:27.693460Z"
-updated_at = "2026-05-05T08:51:27.693460Z"
+updated_at = "2026-05-05T09:35:59.145999Z"
+completed_at = "2026-05-05T09:35:59.145999Z"
 
 [tasks.execution]
-logs = []
+agent_id = "gemini"
+start_time = "2026-05-05T09:33:29.803193Z"
+end_time = "2026-05-05T09:35:59.145998Z"
+logs = ["Implemented dispatch --once and sequential watch loop in src/commands/dispatch.rs"]
+outcome = "success"
 
 [tasks.metadata]
 

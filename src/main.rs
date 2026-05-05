@@ -46,8 +46,7 @@ fn main() -> Result<()> {
             commands::init::execute()?;
         }
         Commands::Dispatch { once } => {
-            println!("Dispatching tasks (once: {})...", once);
-            // TODO: Implementation will follow in TF-11
+            commands::dispatch::execute(*once)?;
         }
         Commands::Config { command } => match command {
             ConfigCommands::Validate => {
