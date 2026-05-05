@@ -1,10 +1,10 @@
-use std::time::Duration;
-use std::thread;
-use anyhow::{Result, anyhow};
 use crate::config;
-use crate::taskflow::TaskFlowAdapter;
-use crate::git::GitWorktreeManager;
 use crate::driver::ProviderDriver;
+use crate::git::GitWorktreeManager;
+use crate::taskflow::TaskFlowAdapter;
+use anyhow::{Result, anyhow};
+use std::thread;
+use std::time::Duration;
 
 pub fn execute(once: bool) -> Result<()> {
     let config = config::load_config()?;
@@ -13,7 +13,9 @@ pub fn execute(once: bool) -> Result<()> {
     let taskflow = TaskFlowAdapter::new(config.clone());
 
     let provider_name = &config.enabled_provider;
-    let provider_config = config.providers.get(provider_name)
+    let provider_config = config
+        .providers
+        .get(provider_name)
         .ok_or_else(|| anyhow!("Enabled provider '{}' not found in config", provider_name))?;
 
     let driver = ProviderDriver::new(
@@ -21,7 +23,10 @@ pub fn execute(once: bool) -> Result<()> {
         Duration::from_secs(config.default_timeout_seconds),
     );
 
-    println!("Starting dispatch loop (once: {}, provider: {})...", once, provider_name);
+    println!(
+        "Starting dispatch loop (once: {}, provider: {})...",
+        once, provider_name
+    );
 
     loop {
         match taskflow.next()? {
@@ -45,7 +50,7 @@ pub fn execute(once: bool) -> Result<()> {
                     Ok(process_result) => {
                         if process_result.success() {
                             println!("Provider completed successfully.");
-                            
+
                             // 4. Validate
                             println!("Running TaskFlow validation...");
                             match taskflow.validate(&task.id) {
@@ -78,7 +83,7 @@ pub fn execute(once: bool) -> Result<()> {
 
                 // 6. Sync
                 taskflow.sync()?;
-                
+
                 println!("Task {} processing finished.", task.id);
             }
             None => {

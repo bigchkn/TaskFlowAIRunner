@@ -1,9 +1,9 @@
+use crate::config::{PromptArgMode, ProviderConfig};
+use crate::process::{ProcessResult, execute_with_timeout};
+use anyhow::{Context, Result};
 use std::path::Path;
 use std::process::Command;
 use std::time::Duration;
-use anyhow::{Result, Context};
-use crate::config::{ProviderConfig, PromptArgMode};
-use crate::process::{execute_with_timeout, ProcessResult};
 
 #[allow(dead_code)]
 pub struct ProviderDriver {
@@ -22,29 +22,29 @@ impl ProviderDriver {
 
     pub fn execute(&self, prompt: &str, workdir: &Path) -> Result<ProcessResult> {
         let mut command = Command::new(&self.config.command);
-        
+
         // Set working directory
         command.current_dir(workdir);
-        
+
         // Set environment variables
         for (key, value) in &self.config.env {
             command.env(key, value);
         }
-        
+
         // Add static arguments
         command.args(&self.config.args_before_prompt);
-        
+
         let stdin_input = match self.config.prompt_arg_mode {
             PromptArgMode::Positional => {
                 command.arg(prompt);
                 None
             }
-            PromptArgMode::Stdin => {
-                Some(prompt.to_string())
-            }
+            PromptArgMode::Stdin => Some(prompt.to_string()),
         };
 
-        let timeout = self.config.timeout_seconds
+        let timeout = self
+            .config
+            .timeout_seconds
             .map(Duration::from_secs)
             .unwrap_or(self.default_timeout);
 
@@ -69,10 +69,10 @@ mod tests {
             env: HashMap::new(),
             timeout_seconds: None,
         };
-        
+
         let driver = ProviderDriver::new(config, Duration::from_secs(5));
         let result = driver.execute("hello world", workdir.path()).unwrap();
-        
+
         assert!(result.success());
         assert_eq!(result.stdout, "hello world");
     }
@@ -87,10 +87,10 @@ mod tests {
             env: HashMap::new(),
             timeout_seconds: Some(10),
         };
-        
+
         let driver = ProviderDriver::new(config, Duration::from_secs(5));
         let result = driver.execute("hello stdin", workdir.path()).unwrap();
-        
+
         assert!(result.success());
         assert_eq!(result.stdout, "hello stdin");
     }
@@ -100,7 +100,7 @@ mod tests {
         let workdir = tempdir().unwrap();
         let mut env = HashMap::new();
         env.insert("TEST_VAR".to_string(), "test_value".to_string());
-        
+
         let config = ProviderConfig {
             command: "sh".to_string(),
             args_before_prompt: vec!["-c".to_string(), "echo $TEST_VAR".to_string()],
@@ -108,10 +108,10 @@ mod tests {
             env,
             timeout_seconds: None,
         };
-        
+
         let driver = ProviderDriver::new(config, Duration::from_secs(5));
         let result = driver.execute("", workdir.path()).unwrap();
-        
+
         assert!(result.success());
         assert_eq!(result.stdout.trim(), "test_value");
     }
@@ -126,10 +126,10 @@ mod tests {
             env: HashMap::new(),
             timeout_seconds: None,
         };
-        
+
         let driver = ProviderDriver::new(config, Duration::from_secs(5));
         let result = driver.execute("world", workdir.path()).unwrap();
-        
+
         assert!(result.success());
         assert_eq!(result.stdout, "hello world");
     }

@@ -1,8 +1,8 @@
+use anyhow::{Context, Result, anyhow};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use std::path::PathBuf;
 use std::fs;
-use anyhow::{Result, Context, anyhow};
+use std::path::PathBuf;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub enum PromptArgMode {
@@ -33,15 +33,18 @@ pub struct Config {
 impl Default for Config {
     fn default() -> Self {
         let mut providers = HashMap::new();
-        
+
         // Add some default providers
-        providers.insert("gemini".to_string(), ProviderConfig {
-            command: "gemini".to_string(),
-            args_before_prompt: vec![],
-            prompt_arg_mode: PromptArgMode::Stdin,
-            env: HashMap::new(),
-            timeout_seconds: None,
-        });
+        providers.insert(
+            "gemini".to_string(),
+            ProviderConfig {
+                command: "gemini".to_string(),
+                args_before_prompt: vec![],
+                prompt_arg_mode: PromptArgMode::Stdin,
+                env: HashMap::new(),
+                timeout_seconds: None,
+            },
+        );
 
         Config {
             providers,
@@ -54,8 +57,7 @@ impl Default for Config {
 }
 
 pub fn get_config_path() -> Result<PathBuf> {
-    let home = directories::UserDirs::new()
-        .context("Could not find home directory")?;
+    let home = directories::UserDirs::new().context("Could not find home directory")?;
     let config_dir = home.home_dir().join(".taskflow");
     Ok(config_dir.join("taskflow-runner.json"))
 }
@@ -63,7 +65,10 @@ pub fn get_config_path() -> Result<PathBuf> {
 pub fn load_config() -> Result<Config> {
     let path = get_config_path()?;
     if !path.exists() {
-        return Err(anyhow!("Config file not found at {:?}. Run 'init' first.", path));
+        return Err(anyhow!(
+            "Config file not found at {:?}. Run 'init' first.",
+            path
+        ));
     }
     let content = fs::read_to_string(path)?;
     let config: Config = serde_json::from_str(&content)?;
@@ -97,9 +102,12 @@ mod tests {
         let config = Config::default();
         let json = serde_json::to_string(&config).unwrap();
         let deserialized: Config = serde_json::from_str(&json).unwrap();
-        
+
         assert_eq!(config.enabled_provider, deserialized.enabled_provider);
-        assert_eq!(config.default_timeout_seconds, deserialized.default_timeout_seconds);
+        assert_eq!(
+            config.default_timeout_seconds,
+            deserialized.default_timeout_seconds
+        );
         assert_eq!(config.taskflow_command, deserialized.taskflow_command);
         assert_eq!(config.worktree_root, deserialized.worktree_root);
         assert_eq!(config.providers.len(), deserialized.providers.len());
@@ -114,7 +122,7 @@ mod tests {
             "env": { "KEY": "VALUE" },
             "timeout_seconds": 120
         }"#;
-        
+
         let config: ProviderConfig = serde_json::from_str(json).unwrap();
         assert_eq!(config.command, "test-cmd");
         assert_eq!(config.args_before_prompt, vec!["--flag"]);

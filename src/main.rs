@@ -1,12 +1,12 @@
-use clap::{Parser, Subcommand};
 use anyhow::Result;
+use clap::{Parser, Subcommand};
 
-mod config;
 mod commands;
+mod config;
+mod driver;
+mod git;
 mod process;
 mod taskflow;
-mod git;
-mod driver;
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -49,12 +49,10 @@ fn main() -> Result<()> {
             commands::dispatch::execute(*once)?;
         }
         Commands::Config { command } => match command {
-            ConfigCommands::Validate => {
-                match config::load_config() {
-                    Ok(_) => println!("Configuration is valid."),
-                    Err(e) => println!("Configuration error: {}", e),
-                }
-            }
+            ConfigCommands::Validate => match config::load_config() {
+                Ok(_) => println!("Configuration is valid."),
+                Err(e) => println!("Configuration error: {}", e),
+            },
         },
     }
 
