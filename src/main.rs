@@ -4,6 +4,7 @@ use anyhow::Result;
 mod config;
 mod commands;
 mod process;
+mod taskflow;
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]

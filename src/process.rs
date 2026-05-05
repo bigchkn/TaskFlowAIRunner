@@ -7,6 +7,7 @@ use wait_timeout::ChildExt;
 
 /// The result of a process execution.
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct ProcessResult {
     /// Captured stdout.
     pub stdout: String,
@@ -27,16 +28,18 @@ pub struct ProcessResult {
 impl ProcessResult {
     /// Returns true if the process finished successfully (exit code 0).
     pub fn success(&self) -> bool {
-        self.status.map_or(false, |s| s.success())
+        self.status.is_some_and(|s| s.success())
     }
 
     /// Returns the exit code if available.
+    #[allow(dead_code)]
     pub fn code(&self) -> Option<i32> {
         self.status.and_then(|s| s.code())
     }
 }
 
 /// Executes a command with a timeout and captures its output.
+#[allow(dead_code)]
 pub fn execute_with_timeout(
     mut command: Command,
     timeout: Duration,
@@ -54,6 +57,7 @@ pub fn execute_with_timeout(
     let mut child = command.spawn()
         .with_context(|| format!("Failed to spawn process: {:?}", command))?;
 
+    #[allow(clippy::collapsible_if)]
     if let Some(input) = stdin_input {
         if let Some(mut stdin) = child.stdin.take() {
             stdin.write_all(input.as_bytes()).context("Failed to write to stdin")?;
