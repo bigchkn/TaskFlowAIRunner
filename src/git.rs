@@ -30,6 +30,10 @@ impl GitWorktreeManager {
         Self { repo_root }
     }
 
+    pub fn get_worktree_path(&self, task_id: &str, worktree_root_config: &str) -> PathBuf {
+        self.repo_root.join(worktree_root_config).join(task_id)
+    }
+
     /// Gets the current branch name.
     pub fn get_current_branch(&self) -> Result<String> {
         let mut cmd = Command::new("git");
@@ -52,15 +56,15 @@ impl GitWorktreeManager {
     /// Returns the absolute path to the worktree.
     pub fn create_worktree(&self, task_id: &str, worktree_root_config: &str) -> Result<PathBuf> {
         let branch_name = format!("taskflow/{}", task_id);
-        let worktree_root = self.repo_root.join(worktree_root_config);
-        let worktree_path = worktree_root.join(task_id);
+        let worktree_path = self.get_worktree_path(task_id, worktree_root_config);
+        let worktree_root = worktree_path.parent().unwrap();
 
         if worktree_path.exists() {
              return Err(anyhow!("Worktree path already exists: {:?}", worktree_path));
         }
 
         // Ensure worktree_root exists
-        std::fs::create_dir_all(&worktree_root).context("Failed to create worktree root directory")?;
+        std::fs::create_dir_all(worktree_root).context("Failed to create worktree root directory")?;
 
         // 1. Create branch if it doesn't exist
         // We use 'git branch' to create it from HEAD if it doesn't exist.
@@ -92,8 +96,7 @@ impl GitWorktreeManager {
 
     /// Removes a worktree.
     pub fn remove_worktree(&self, task_id: &str, worktree_root_config: &str) -> Result<()> {
-        let worktree_root = self.repo_root.join(worktree_root_config);
-        let worktree_path = worktree_root.join(task_id);
+        let worktree_path = self.get_worktree_path(task_id, worktree_root_config);
         
         if !worktree_path.exists() {
             return Ok(());
@@ -168,5 +171,20 @@ mod tests {
         
         manager.remove_worktree(task_id, worktree_root).expect("Should remove worktree");
         assert!(!wt_path.exists());
+    }
+
+    #[test]
+    fn test_worktree_path_derivation() {
+        let repo_path = PathBuf::from("/tmp/repo");
+        let manager = GitWorktreeManager::new(repo_path.clone());
+        
+        let task_id = "TF-1";
+        let worktree_root = "custom/wt";
+        
+        let derived_path = manager.get_worktree_path(task_id, worktree_root);
+        let expected_path = repo_path.join(worktree_root).join(task_id);
+        
+        assert_eq!(derived_path, expected_path);
+        assert_eq!(derived_path.to_str().unwrap(), "/tmp/repo/custom/wt/TF-1");
     }
 }

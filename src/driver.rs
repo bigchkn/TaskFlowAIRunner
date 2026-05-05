@@ -115,4 +115,22 @@ mod tests {
         assert!(result.success());
         assert_eq!(result.stdout.trim(), "test_value");
     }
+
+    #[test]
+    fn test_driver_multiple_args() {
+        let workdir = tempdir().unwrap();
+        let config = ProviderConfig {
+            command: "printf".to_string(),
+            args_before_prompt: vec!["%s %s".to_string(), "hello".to_string()],
+            prompt_arg_mode: PromptArgMode::Positional,
+            env: HashMap::new(),
+            timeout_seconds: None,
+        };
+        
+        let driver = ProviderDriver::new(config, Duration::from_secs(5));
+        let result = driver.execute("world", workdir.path()).unwrap();
+        
+        assert!(result.success());
+        assert_eq!(result.stdout, "hello world");
+    }
 }

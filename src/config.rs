@@ -79,3 +79,50 @@ pub fn save_config(config: &Config) -> Result<()> {
     fs::write(path, content)?;
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_config_default() {
+        let config = Config::default();
+        assert_eq!(config.enabled_provider, "gemini");
+        assert_eq!(config.default_timeout_seconds, 3600);
+        assert!(config.providers.contains_key("gemini"));
+    }
+
+    #[test]
+    fn test_config_serialization() {
+        let config = Config::default();
+        let json = serde_json::to_string(&config).unwrap();
+        let deserialized: Config = serde_json::from_str(&json).unwrap();
+        
+        assert_eq!(config.enabled_provider, deserialized.enabled_provider);
+        assert_eq!(config.default_timeout_seconds, deserialized.default_timeout_seconds);
+        assert_eq!(config.taskflow_command, deserialized.taskflow_command);
+        assert_eq!(config.worktree_root, deserialized.worktree_root);
+        assert_eq!(config.providers.len(), deserialized.providers.len());
+    }
+
+    #[test]
+    fn test_provider_config_serialization() {
+        let json = r#"{
+            "command": "test-cmd",
+            "args_before_prompt": ["--flag"],
+            "prompt_arg_mode": "positional",
+            "env": { "KEY": "VALUE" },
+            "timeout_seconds": 120
+        }"#;
+        
+        let config: ProviderConfig = serde_json::from_str(json).unwrap();
+        assert_eq!(config.command, "test-cmd");
+        assert_eq!(config.args_before_prompt, vec!["--flag"]);
+        match config.prompt_arg_mode {
+            PromptArgMode::Positional => (),
+            _ => panic!("Wrong prompt_arg_mode"),
+        }
+        assert_eq!(config.env.get("KEY").unwrap(), "VALUE");
+        assert_eq!(config.timeout_seconds, Some(120));
+    }
+}

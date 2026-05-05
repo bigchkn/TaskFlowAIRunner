@@ -176,4 +176,24 @@ Suggested Action:
         let task = parse_next_output(output).unwrap();
         assert!(task.is_none());
     }
+
+    #[test]
+    fn test_parse_next_output_missing_fields() {
+        let output = r#">>> Next Task: TF-12 - Add tests
+Priority:  Low"#;
+
+        let task = parse_next_output(output).unwrap().expect("Should find a task");
+        assert_eq!(task.id, "TF-12");
+        assert_eq!(task.title, "Add tests");
+        assert_eq!(task.priority, "Low");
+        assert_eq!(task.milestone, "");
+        assert_eq!(task.status, "");
+    }
+
+    #[test]
+    fn test_parse_next_output_unexpected_format() {
+        let output = "Just some random text that doesn't match.";
+        let task = parse_next_output(output).unwrap();
+        assert!(task.is_none());
+    }
 }
