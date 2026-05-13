@@ -12,6 +12,94 @@ The runner transforms a static backlog (defined in `.taskflow/*.toml`) into an a
 - **AI CLIs:** One or more supported AI CLIs (e.g., `gemini`, `claude`) must be installed and authenticated.
 - **Git:** Required for worktree management.
 
+## Usage
+
+Run all commands from the root of a Git repository that contains a TaskFlowAI project.
+
+### Initialize the runner
+
+Create or update the global runner config and add `.taskflow/worktrees` to the project's `.gitignore`:
+
+```sh
+taskflow-runner init
+```
+
+`init` detects supported providers in `PATH` (`gemini`, `claude`, `dirac`, and `opencode`) and writes the configuration to:
+
+```text
+~/.taskflow/taskflow-runner.json
+```
+
+If multiple providers are detected, the wizard asks which one should be the default enabled provider. If no supported provider is detected, create or edit the config manually.
+
+### Configure providers
+
+The config is JSON. A minimal config for a provider that reads the TaskFlow prompt from stdin looks like this:
+
+```json
+{
+  "providers": {
+    "gemini": {
+      "command": "gemini",
+      "args_before_prompt": [],
+      "prompt_arg_mode": "stdin",
+      "env": {},
+      "timeout_seconds": null
+    }
+  },
+  "enabled_provider": "gemini",
+  "default_timeout_seconds": 3600,
+  "taskflow_command": "taskflow-ai",
+  "worktree_root": ".taskflow/worktrees"
+}
+```
+
+Use `args_before_prompt` for static CLI flags, such as headless or permission flags. Set `prompt_arg_mode` to `positional` for CLIs that expect the prompt as a command-line argument instead of stdin:
+
+```json
+{
+  "providers": {
+    "claude": {
+      "command": "claude",
+      "args_before_prompt": ["--permission-mode", "bypassPermissions"],
+      "prompt_arg_mode": "positional",
+      "env": {},
+      "timeout_seconds": 1800
+    }
+  },
+  "enabled_provider": "claude",
+  "default_timeout_seconds": 3600,
+  "taskflow_command": "taskflow-ai",
+  "worktree_root": ".taskflow/worktrees"
+}
+```
+
+Validate the config after editing it:
+
+```sh
+taskflow-runner config validate
+```
+
+### Dispatch tasks
+
+Run one task and exit:
+
+```sh
+taskflow-runner dispatch --once
+```
+
+Run continuously in watch mode:
+
+```sh
+taskflow-runner dispatch
+```
+
+For each available task, the runner creates a worktree under `.taskflow/worktrees/<task-id>`, marks the TaskFlowAI task as started, invokes the enabled provider with this prompt, validates the task, and records the result:
+
+```text
+Run /taskflow and execute the next available task.
+```
+
 ## Core Mechanics
 
 ### 1. Configuration & Initialization

@@ -338,7 +338,7 @@ uid = "6953bda9-1705-4efb-995f-2521149dea36"
 title = "Add README usage examples for init, config, and dispatch"
 description = ""
 task_type = "feature"
-status = "backlog"
+status = "done"
 priority = 0
 parent_id = "43fcea97-b087-4ea4-acfc-c180180eef53"
 subtask_uids = []
@@ -346,9 +346,14 @@ milestone_id = "M1"
 designs = []
 tags = []
 created_at = "2026-05-05T08:51:27.701781Z"
-updated_at = "2026-05-05T08:51:27.701781Z"
+updated_at = "2026-05-13T04:54:18.118359Z"
+completed_at = "2026-05-13T04:54:18.118359Z"
 
 [tasks.execution]
-logs = []
+agent_id = "Codex"
+start_time = "2026-05-13T04:53:44.323828Z"
+end_time = "2026-05-13T04:54:18.118359Z"
+logs = ["Added README usage examples for init, config validation, provider JSON, and dispatch modes."]
+outcome = "success"
 
 [tasks.metadata]

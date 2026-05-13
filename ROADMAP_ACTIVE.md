@@ -20,7 +20,7 @@
   - [x] **TF-10**: Implement provider driver construction from config (Parent: TF-1)(`Done`)
   - [x] **TF-11**: Implement dispatch --once and the sequential watch loop (Parent: TF-1)(`Done`)
   - [x] **TF-12**: Add tests around config, provider command, TaskFlow output, and worktree (Parent: TF-1)(`Done`)
-  - [ ] **TF-13**: Add README usage examples for init, config, and dispatch (Parent: TF-1)(`Backlog`)
+  - [x] **TF-13**: Add README usage examples for init, config, and dispatch (Parent: TF-1)(`Done`)
 
 ## Backlog
 
